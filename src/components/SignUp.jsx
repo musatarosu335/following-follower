@@ -26,6 +26,16 @@ export default class SignUp extends React.Component {
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
         console.log(`Success! ${user}`); // eslint-disable-line no-console
+
+        // ユーザをFirestoreに追加
+        const db = firebase.firestore();
+        db.collection(`users/${user.user.uid}/sign_up`).add({
+          createOn: new Date(),
+        }).then((docRef) => {
+          console.log('Document written with ID: ', docRef.id); // eslint-disable-line no-console
+        }).catch((err) => {
+          console.log(err); // eslint-disable-line no-console
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
