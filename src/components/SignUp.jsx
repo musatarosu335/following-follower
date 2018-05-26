@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React from 'react';
 
 export default class SignUp extends React.Component {
@@ -22,7 +23,16 @@ export default class SignUp extends React.Component {
   }
 
   handleSubmit() {
-    
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then((user) => {
+        console.log(`Success! ${user}`); // eslint-disable-line no-console
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode); // eslint-disable-line no-console
+        console.log(errorMessage); // eslint-disable-line no-console
+      });
   }
 
   render() {
