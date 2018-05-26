@@ -1,7 +1,9 @@
 import React from 'react';
 
+import SignUp from './SignUp';
+
 const App = () => (
-  <h1>Hello World!</h1>
+  <SignUp />
 );
 
 export default App;
