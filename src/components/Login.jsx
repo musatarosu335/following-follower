@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import React from 'react';
 
-export default class SignUp extends React.Component {
+export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,19 +23,9 @@ export default class SignUp extends React.Component {
   }
 
   handleSubmit() {
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
-        console.log(`Success! ${user}`); // eslint-disable-line no-console
-
-        // ユーザをFirestoreに追加
-        const db = firebase.firestore();
-        db.collection(`users/${user.user.uid}/sign_up`).add({
-          createOn: new Date(),
-        }).then((docRef) => {
-          console.log('Document written with ID: ', docRef.id); // eslint-disable-line no-console
-        }).catch((err) => {
-          console.log(err); // eslint-disable-line no-console
-        });
+        console.log(`Success Login! ${user}`); // eslint-disable-line no-console
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -48,7 +38,7 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <div>
-        <h1>SignUp</h1>
+        <h1>Login</h1>
         <p>Email: </p>
         <input
           type="text"

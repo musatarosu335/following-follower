@@ -1,9 +1,10 @@
 import React from 'react';
 
-import SignUp from './SignUp';
+// import SignUp from './SignUp';
+import Login from './Login';
 
 const App = () => (
-  <SignUp />
+  <Login />
 );
 
 export default App;
