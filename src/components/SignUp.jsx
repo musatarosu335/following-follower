@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import React from 'react';
 
 export default class SignUp extends React.Component {
