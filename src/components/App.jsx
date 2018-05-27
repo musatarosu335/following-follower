@@ -8,16 +8,8 @@ import Users from './Users';
 const App = () => (
   <Router>
     <Switch>
-      <Route
-        exact
-        path="/"
-        render={() => <Login />}
-      />
-      <Route
-        exact
-        path="/users"
-        render={() => <Users />}
-      />
+      <Route exact path="/" component={Login} />
+      <Route exact path="/users" component={Users} />
     </Switch>
   </Router>
 );
