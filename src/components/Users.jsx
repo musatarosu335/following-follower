@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -28,10 +29,8 @@ export default class Users extends React.Component {
     return (
       <div>
         <h1>Users</h1>
-        <button onClick={() => this.handleClick()}>
-          Confilm
-        </button>
         <p>{this.state.user.email}</p>
+        <Redirect to="/redirect-test" />
       </div>
     );
   }
