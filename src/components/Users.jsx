@@ -1,7 +1,38 @@
+import firebase from 'firebase/app';
 import React from 'react';
 
-const Users = () => (
-  <h1>This is Users Page</h1>
-);
+export default class Users extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    };
+  }
 
-export default Users;
+  handleClick() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.setState({
+        user,
+      });
+    });
+  }
+
+  render() {
+    if (!this.state.user) {
+      return (
+        <button onClick={() => this.handleClick()}>
+          Confilm
+        </button>
+      );
+    }
+    return (
+      <div>
+        <h1>Users</h1>
+        <button onClick={() => this.handleClick()}>
+          Confilm
+        </button>
+        <p>{this.state.user.email}</p>
+      </div>
+    );
+  }
+}
