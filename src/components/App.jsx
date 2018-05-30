@@ -6,7 +6,6 @@ import Login from './Login';
 import Auth from './Auth';
 import Main from './Main';
 import Users from './Users';
-// import RedirectTest from './RedirectTest';
 
 const App = () => (
   <Router>
