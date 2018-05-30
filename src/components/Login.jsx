@@ -1,10 +1,12 @@
 import firebase from 'firebase/app';
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: false,
       email: '',
       password: '',
     };
@@ -26,6 +28,10 @@ export default class Login extends React.Component {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
         console.log(`Success Login! ${user}`); // eslint-disable-line no-console
+
+        this.setState({
+          redirect: true,
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -36,6 +42,10 @@ export default class Login extends React.Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div>
         <h1>Login</h1>
