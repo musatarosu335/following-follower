@@ -13,11 +13,14 @@ export default class Users extends React.Component {
   componentWillMount() {
     const db = firebase.firestore();
     const users = [];
+    const { uid } = firebase.auth().currentUser;
 
     db.collection('users').get().then((snapshot) => {
       snapshot.forEach((doc) => {
-        const { name } = doc.data();
-        users.push(name);
+        if (uid !== doc.id) {
+          const { name } = doc.data();
+          users.push(name);
+        }
       });
       this.setState({
         users,
@@ -28,7 +31,7 @@ export default class Users extends React.Component {
   render() {
     return (
       <div>
-        <h1>Users</h1>
+        <h1>Users(Other than my own)</h1>
         <ul>
           {this.state.users.map((user, i) => (
             // eslint-disable-next-line
