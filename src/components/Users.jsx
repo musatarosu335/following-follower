@@ -2,6 +2,8 @@ import firebase from 'firebase/app';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import FollowButton from './FollowButton';
+
 export default class Users extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,12 @@ export default class Users extends React.Component {
       snapshot.forEach((doc) => {
         if (uid !== doc.id) {
           const { name } = doc.data();
-          users.push(name);
+          const userId = doc.id;
+          const userInfo = {
+            userId,
+            name,
+          };
+          users.push(userInfo);
         }
       });
       this.setState({
@@ -35,7 +42,10 @@ export default class Users extends React.Component {
         <ul>
           {this.state.users.map((user, i) => (
             // eslint-disable-next-line
-            <li key={i}>{user}</li>
+            <li key={i}>
+              {user.name}
+              <FollowButton userId={user.userId} />
+            </li>
           ))}
         </ul>
         <Link to="/">Main</Link>
