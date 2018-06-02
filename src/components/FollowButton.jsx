@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const handleClick = (userId) => {
-  // ここでFirestoreに書き込む
   const db = firebase.firestore();
   const { currentUser } = firebase.auth();
   const followingUserRef = db.collection(`users/${currentUser.uid}/following`).doc(userId);
