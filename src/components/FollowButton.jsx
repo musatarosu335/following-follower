@@ -6,12 +6,13 @@ const handleClick = (userId) => {
   // ここでFirestoreに書き込む
   const db = firebase.firestore();
   const { currentUser } = firebase.auth();
+  const followingUserRef = db.collection(`users/${currentUser.uid}/following`).doc(userId);
 
-  db.collection(`users/${currentUser.uid}/following`).add({
+  followingUserRef.set({
     uid: userId,
     follow_time: new Date(),
-  }).then((docRef) => {
-    console.log('Document written with ID: ', docRef.id); // eslint-disable-line no-console
+  }).then(() => {
+    console.log('Document written'); // eslint-disable-line no-console
   }).catch((err) => {
     console.log(err); // eslint-disable-line no-console
   });

@@ -50,7 +50,7 @@ export default class Users extends React.Component {
     db.collection(`users/${currentUser.uid}/following`).get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          const followingUser = doc.data().uid;
+          const followingUser = doc.id;
           followingUsers.push(followingUser);
         });
         this.setState({
@@ -69,7 +69,7 @@ export default class Users extends React.Component {
             <li key={i}>
               {user.name}
               {this.state.followingUsers.indexOf(user.userId) >= 0
-                ? <UnfollowButton />
+                ? <UnfollowButton userId={user.userId} />
                 : <FollowButton userId={user.userId} />
               }
             </li>
