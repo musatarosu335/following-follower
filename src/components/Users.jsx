@@ -3,23 +3,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import FollowButton from './FollowButton';
+import UnfollowButton from './UnfollowButton';
 
 export default class Users extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
+      followingUsers: [],
     };
   }
 
   componentWillMount() {
+    this.fetchUsers();
+    this.fetchFollowingUsers();
+  }
+
+  fetchUsers() {
     const db = firebase.firestore();
     const users = [];
-    const { uid } = firebase.auth().currentUser;
+    const { currentUser } = firebase.auth();
 
     db.collection('users').get().then((snapshot) => {
       snapshot.forEach((doc) => {
-        if (uid !== doc.id) {
+        if (currentUser.uid !== doc.id) {
           const { name } = doc.data();
           const userId = doc.id;
           const userInfo = {
@@ -35,6 +42,23 @@ export default class Users extends React.Component {
     });
   }
 
+  fetchFollowingUsers() {
+    const db = firebase.firestore();
+    const followingUsers = [];
+    const { currentUser } = firebase.auth();
+
+    db.collection(`users/${currentUser.uid}/following`).get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          const followingUser = doc.data().uid;
+          followingUsers.push(followingUser);
+        });
+        this.setState({
+          followingUsers,
+        });
+      });
+  }
+
   render() {
     return (
       <div>
@@ -44,7 +68,10 @@ export default class Users extends React.Component {
             // eslint-disable-next-line
             <li key={i}>
               {user.name}
-              <FollowButton userId={user.userId} />
+              {this.state.followingUsers.indexOf(user.userId) >= 0
+                ? <UnfollowButton />
+                : <FollowButton userId={user.userId} />
+              }
             </li>
           ))}
         </ul>
