@@ -11,12 +11,21 @@ export default class Users extends React.Component {
     super(props);
     this.state = {
       users: [],
+      followingUsers: [],
     };
   }
 
   componentWillMount() {
     this.fetchUsers();
     this.props.fetchFollowingUsers();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.followingUsers !== nextProps.followingUsers) {
+      this.setState({
+        followingUsers: nextProps.followingUsers,
+      });
+    }
   }
 
   fetchUsers() {
@@ -51,9 +60,12 @@ export default class Users extends React.Component {
             // eslint-disable-next-line
             <li key={i}>
               {user.name}
-              {this.props.followingUsers.indexOf(user.userId) >= 0
+              {this.state.followingUsers.indexOf(user.userId) >= 0
                 ? <UnfollowButton userId={user.userId} />
-                : <FollowButton userId={user.userId} />
+                : <FollowButton
+                  userId={user.userId}
+                  fetchFollowingUsers={this.props.fetchFollowingUsers}
+                />
               }
             </li>
           ))}
