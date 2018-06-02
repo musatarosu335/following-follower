@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import FollowButton from './FollowButton';
@@ -10,13 +11,12 @@ export default class Users extends React.Component {
     super(props);
     this.state = {
       users: [],
-      followingUsers: [],
     };
   }
 
   componentWillMount() {
     this.fetchUsers();
-    this.fetchFollowingUsers();
+    this.props.fetchFollowingUsers();
   }
 
   fetchUsers() {
@@ -42,23 +42,6 @@ export default class Users extends React.Component {
     });
   }
 
-  fetchFollowingUsers() {
-    const db = firebase.firestore();
-    const followingUsers = [];
-    const { currentUser } = firebase.auth();
-
-    db.collection(`users/${currentUser.uid}/following`).get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          const followingUser = doc.id;
-          followingUsers.push(followingUser);
-        });
-        this.setState({
-          followingUsers,
-        });
-      });
-  }
-
   render() {
     return (
       <div>
@@ -68,7 +51,7 @@ export default class Users extends React.Component {
             // eslint-disable-next-line
             <li key={i}>
               {user.name}
-              {this.state.followingUsers.indexOf(user.userId) >= 0
+              {this.props.followingUsers.indexOf(user.userId) >= 0
                 ? <UnfollowButton userId={user.userId} />
                 : <FollowButton userId={user.userId} />
               }
@@ -80,3 +63,8 @@ export default class Users extends React.Component {
     );
   }
 }
+
+Users.propTypes = {
+  followingUsers: PropTypes.array.isRequired,
+  fetchFollowingUsers: PropTypes.func.isRequired,
+};

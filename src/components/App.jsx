@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Auth from './Auth';
 import Main from './Main';
-import Users from './Users';
+import Users from '../containers/Users';
 
 const App = () => (
   <Router>
