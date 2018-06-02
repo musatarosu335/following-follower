@@ -3,6 +3,9 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import React from 'react';
 import ReactDom from 'react-dom';
+import { Provider } from 'react-redux';
+
+import store from './store';
 import ENV from '../env.json';
 
 import App from './components/App';
@@ -23,6 +26,8 @@ const settings = { timestampsInSnapshots: true };
 firestore.settings(settings);
 
 ReactDom.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root'),
 );
