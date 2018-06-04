@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FollowButton = ({ userId, followingUsers, writeFollowingUser }) => {
+const FollowButton = ({
+  userId,
+  followingUsers,
+  writeFollowingUser,
+  deleteFollowingUser,
+}) => {
   if (followingUsers.indexOf(userId) >= 0) {
     return (
-      <button>
+      <button onClick={() => deleteFollowingUser(userId)}>
         Unfollow
       </button>
     );
@@ -20,6 +25,7 @@ FollowButton.propTypes = {
   userId: PropTypes.string.isRequired,
   followingUsers: PropTypes.array.isRequired,
   writeFollowingUser: PropTypes.func.isRequired,
+  deleteFollowingUser: PropTypes.func.isRequired,
 };
 
 export default FollowButton;
