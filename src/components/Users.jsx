@@ -3,29 +3,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import FollowButton from './FollowButton';
-import UnfollowButton from './UnfollowButton';
+import FollowButton from '../containers/FollowButton';
 
 export default class Users extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
-      followingUsers: [],
     };
   }
 
   componentWillMount() {
     this.fetchUsers();
     this.props.fetchFollowingUsers();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.followingUsers !== nextProps.followingUsers) {
-      this.setState({
-        followingUsers: nextProps.followingUsers,
-      });
-    }
   }
 
   fetchUsers() {
@@ -60,13 +50,7 @@ export default class Users extends React.Component {
             // eslint-disable-next-line
             <li key={i}>
               {user.name}
-              {this.state.followingUsers.indexOf(user.userId) >= 0
-                ? <UnfollowButton userId={user.userId} />
-                : <FollowButton
-                  userId={user.userId}
-                  fetchFollowingUsers={this.props.fetchFollowingUsers}
-                />
-              }
+              <FollowButton userId={user.userId} />
             </li>
           ))}
         </ul>
@@ -77,6 +61,5 @@ export default class Users extends React.Component {
 }
 
 Users.propTypes = {
-  followingUsers: PropTypes.array.isRequired,
   fetchFollowingUsers: PropTypes.func.isRequired,
 };
