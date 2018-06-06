@@ -5,11 +5,11 @@ const FollowButton = ({
   userId,
   followingUsers,
   writeFollowingAndFollowerUser,
-  deleteFollowingUser,
+  deleteFollowingAndFollowerUser,
 }) => {
   if (followingUsers.indexOf(userId) >= 0) {
     return (
-      <button onClick={() => deleteFollowingUser(userId)}>
+      <button onClick={() => deleteFollowingAndFollowerUser(userId)}>
         Unfollow
       </button>
     );
@@ -25,7 +25,7 @@ FollowButton.propTypes = {
   userId: PropTypes.string.isRequired,
   followingUsers: PropTypes.array.isRequired,
   writeFollowingAndFollowerUser: PropTypes.func.isRequired,
-  deleteFollowingUser: PropTypes.func.isRequired,
+  deleteFollowingAndFollowerUser: PropTypes.func.isRequired,
 };
 
 export default FollowButton;
