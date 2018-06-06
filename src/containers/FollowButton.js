@@ -8,18 +8,30 @@ const mapStateToProps = ({ followingUsers }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // フォローしたユーザーの書き込み処理
-  writeFollowingUser(userId) {
+  // フォローした・されたユーザーの書き込み処理
+  writeFollowingAndFollowerUser(userId) {
     const db = firebase.firestore();
     const { currentUser } = firebase.auth();
     const followingUserRef = db.collection(`users/${currentUser.uid}/following`).doc(userId);
+    const followerUserRef = db.collection(`users/${userId}/follower`).doc(currentUser.uid);
 
+    // followingの書き込み処理
     followingUserRef.set({
       uid: userId,
       follow_time: new Date(),
     }).then(() => {
       console.log('Document written'); // eslint-disable-line no-console
       dispatch(fetchFollowingUsers()); // フォロー後のfollowingUsersを取得
+    }).catch((err) => {
+      console.log(err); // eslint-disable-line no-console
+    });
+
+    // followerの書き込み処理
+    followerUserRef.set({
+      uid: currentUser.uid,
+      followed_time: new Date(),
+    }).then(() => {
+      console.log('Document written'); // eslint-disable-line no-console
     }).catch((err) => {
       console.log(err); // eslint-disable-line no-console
     });
