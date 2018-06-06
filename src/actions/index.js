@@ -7,9 +7,12 @@ const setFollowingUsers = followingUsers => ({
   },
 });
 
-export const dammy = () => {
-  console.log('this is dammy'); // eslint-disable-line
-};
+export const setFollowers = followers => ({
+  type: 'SET_FOLLOWERS',
+  payload: {
+    followers,
+  },
+});
 
 export const fetchFollowingUsers = () => {
   const db = firebase.firestore();

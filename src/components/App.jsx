@@ -6,7 +6,7 @@ import Login from './Login';
 import Auth from './Auth';
 import Main from './Main';
 import Users from '../containers/Users';
-import Followers from './Followers';
+import Followers from '../containers/Followers';
 
 const App = () => (
   <Router>
