@@ -55,6 +55,8 @@ export default class Users extends React.Component {
           ))}
         </ul>
         <Link to="/">Main</Link>
+        <br />
+        <Link to="/followers">Followers</Link>
       </div>
     );
   }
