@@ -9,7 +9,6 @@ const mapStateToProps = ({ followers }) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchFollowers() {
-    console.log('log');
     const db = firebase.firestore();
     const followers = [];
     const { currentUser } = firebase.auth();

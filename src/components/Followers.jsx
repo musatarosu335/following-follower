@@ -36,3 +36,8 @@ export default class Followers extends React.Component {
     );
   }
 }
+
+Followers.propTypes = {
+  followers: PropTypes.array.isRequired,
+  fetchFollowers: PropTypes.func.isRequired,
+};
