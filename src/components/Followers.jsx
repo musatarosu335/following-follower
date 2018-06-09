@@ -26,8 +26,10 @@ export default class Followers extends React.Component {
       <div>
         <h1>Followers</h1>
         <ul>
-          {this.state.followers.map(follower => (
-            <li>{follower.uid}</li>
+          {this.state.followers.map((follower, i) => (
+            <li key={i}> {/* eslint-disable-line */}
+              {follower}
+            </li>
           ))}
         </ul>
       </div>
