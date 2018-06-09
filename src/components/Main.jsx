@@ -7,6 +7,8 @@ const Main = () => (
     <Link to="/users">Users</Link>
     <br />
     <Link to="/followers">Followers</Link>
+    <br />
+    <Link to="/serch">Serch</Link>
   </div>
 );
 
