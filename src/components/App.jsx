@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import Auth from './Auth';
 import Main from './Main';
-import Serch from './Serch';
+import Serch from '../containers/Serch';
 import Users from '../containers/Users';
 import Followers from '../containers/Followers';
 

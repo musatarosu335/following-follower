@@ -1,9 +1,17 @@
 import React from 'react';
 
-const Serch = () => (
+const Serch = ({
+  serchWord,
+  serchedUsers,
+  serchAndSetUsers,
+}) => (
   <div>
     <h1>Serch Page</h1>
-    <input value="test value" />
+    <input
+      type="text"
+      value={serchWord}
+      onChange={e => serchAndSetUsers(e.target.value)}
+    />
   </div>
 );
 

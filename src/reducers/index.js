@@ -1,6 +1,8 @@
 const initialState = {
   followingUsers: [],
   followers: [],
+  serchWord: '',
+  serchedUsers: [],
 };
 
 const indexReducer = (state = initialState, action) => {
@@ -14,6 +16,16 @@ const indexReducer = (state = initialState, action) => {
       return ({
         ...state,
         followers: action.payload.followers,
+      });
+    case 'CHANGE_SERCH_WORD':
+      return ({
+        ...state,
+        serchWord: action.payload.serchWord,
+      });
+    case 'SET_SERCHED_USERS':
+      return ({
+        ...state,
+        serchedUsers: action.payload.serchedUsers,
       });
     default:
       return state;

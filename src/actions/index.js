@@ -14,6 +14,20 @@ export const setFollowers = followers => ({
   },
 });
 
+export const changeSerchWord = serchWord => ({
+  type: 'CHANGE_SERCH_WORD',
+  payload: {
+    serchWord,
+  },
+});
+
+export const setSerchedUsers = serchedUsers => ({
+  type: 'SET_SERCHED_USERS',
+  payload: {
+    serchedUsers,
+  },
+});
+
 export const fetchFollowingUsers = () => {
   const db = firebase.firestore();
   const followingUsers = [];
