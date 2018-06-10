@@ -18,11 +18,15 @@ const mapDispatchToProps = dispatch => ({
     db.collection('users').where('name', '==', serchWord).get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          console.log(doc.data());
+          serchedUsers.push(doc.data().name);
         });
+        return serchedUsers;
+      })
+      .then((result) => {
+        dispatch(setSerchedUsers(result));
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err); // eslint-disable-line
       });
   },
 });
